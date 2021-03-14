@@ -53,7 +53,8 @@ module.exports = {
 		"react-hooks/exhaustive-deps": "warn",
 		"react-hooks/rules-of-hooks": "error",
 		"react/self-closing-comp": "error",
-		"simple-import-sort/sort": "error",
+		"simple-import-sort/imports": "error",
+		"simple-import-sort/exports": "error",
 		"unused-imports/no-unused-imports-ts": "error",
 	},
 	extends: [
@@ -64,7 +65,6 @@ module.exports = {
 		"plugin:prettier/recommended",
 		"plugin:react/recommended",
 		"plugin:react-hooks/recommended",
-		"prettier/@typescript-eslint",
 		"plugin:import/errors",
 		"plugin:import/warnings",
 		"plugin:import/typescript",

@@ -9,7 +9,7 @@ let mainWindow: BrowserWindow | null;
 
 function createMainWindow() {
 	const window = new BrowserWindow({
-		webPreferences: { nodeIntegration: true },
+		webPreferences: { nodeIntegration: true, contextIsolation: false },
 	});
 
 	if (isDevelopment) {
