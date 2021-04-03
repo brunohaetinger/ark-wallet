@@ -14,8 +14,11 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
+		"@arkecosystem/client": "^2.0.0",
+		"@types/react-table": "^7.0.29",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
+		"react-table": "^7.6.3",
 		"source-map-support": "^0.5.19",
 		"tailwindcss": "^2.0.3"
 	},
