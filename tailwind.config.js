@@ -9,7 +9,7 @@ module.exports = {
 				"gray-1": "#C7C9CD", // Input field line
 				"gray-2": "#B6BEBE", // All gray text (white and dark background) and all line (white background)
 				"gray-3": "#5A5D60", // Secondary text
-				"dark-1": "#2F333", // Colour of the button and line/icon for dark background
+				"dark-1": "#2F3333", // Colour of the button and line/icon for dark background
 				"dark-2": "#1F2121", // Primary text and icon
 				"dark-3": "#0C0D0D", // Colour hover of the button. Colour for background
 				"dgreen-1": "#B1D3CF", //Colour icon for dark background
@@ -20,10 +20,12 @@ module.exports = {
 				yellow: "#FBC457", // Colour icon for dark background
 			},
 			height: {
+				12.5: "3.125rem",
 				13: "3.25rem",
 				15: "3.75rem",
 			},
 			width: {
+				12.5: "3.125rem",
 				13: "3.25rem",
 				15: "3.75rem",
 			},
