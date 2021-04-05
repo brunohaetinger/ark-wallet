@@ -28,7 +28,6 @@ const WalletDetails = () => {
 	const changeActiveWallet = async (walletId: string) => {
 		try {
 			const res = await new Wallets(connection).get(walletId);
-			console.log(res.body.data);
 			setActiveWallet(res.body.data);
 
 			//transactions
@@ -40,7 +39,6 @@ const WalletDetails = () => {
 				}
 			);
 			setTransactions(transactionRes.body.data);
-			console.log(transactionRes.body.data);
 		} catch (err) {
 			console.log("Error while fetching wallet", err);
 		}
@@ -52,7 +50,9 @@ const WalletDetails = () => {
 				<div className="flex justify-between bg-black w-full text-white h-28 py-7.5 px-10 divide-x rounded-lg">
 					<div className="pr-10 w-1/3 flex items-center h-13">
 						<img src={Logo} className="h-13 w-13" alt="logo" />
-						<span className="ml-3">ARK Wallet</span>
+						<h1 className="ml-3 font-extrabold text-4x1">
+							ARK Wallet
+						</h1>
 					</div>
 					<Dropdown
 						title="Select a wallet"

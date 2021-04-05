@@ -30,7 +30,7 @@ const DropdownHeader = ({
 			</div>
 
 			<div className="w-full px-5 flex flex-row border-2 border-dark-1 rounded-r-full items-center justify-between">
-				<span>{title}</span>
+				<span className="text-base">{title}</span>
 				{arrow}
 			</div>
 		</div>

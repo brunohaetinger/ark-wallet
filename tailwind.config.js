@@ -1,6 +1,19 @@
+const defaultConfig = require("tailwindcss/defaultConfig");
+
 module.exports = {
 	purge: [],
 	theme: {
+		screens: {
+			xs: "375px",
+			sm: "640px",
+			md: "768px",
+			lg: "1024px",
+			xl: "1280px",
+			xxl: "1360px",
+		},
+		fontFamily: {
+			sans: ["Inter", ...defaultConfig.theme.fontFamily.sans],
+		},
 		extend: {
 			colors: {
 				white: "#FFFFFF", // Primary backgrouynd and white text
@@ -31,6 +44,9 @@ module.exports = {
 			},
 			padding: {
 				7.5: "1.875rem",
+			},
+			fontFamily: {
+				sans: ["Inter", ...defaultConfig.theme.fontFamily.sans],
 			},
 		},
 	},
