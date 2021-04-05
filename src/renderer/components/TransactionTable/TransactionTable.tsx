@@ -1,5 +1,10 @@
 import { Transaction } from "@arkecosystem/client";
-import React, { memo, useMemo } from "react";
+import React, { memo, useCallback, useMemo } from "react";
+
+import { useWallet } from "../../../contexts/Wallet";
+import { HumanBigInt } from "../HumanBigInt";
+import { HumanDate } from "../HumanDate";
+import { TruncateMiddle } from "../TruncateMiddle";
 
 export interface TransactionTableProps {
 	transactions: Transaction[] | null;
@@ -38,8 +43,17 @@ const COLUMNS: any[] = [
 ];
 
 const TransactionTable = ({ transactions }: TransactionTableProps) => {
+	const { activeWallet } = useWallet();
 	const columns = useMemo(() => COLUMNS, []);
 	const data = useMemo(() => transactions, [transactions]);
+
+	const textLinkClass = useCallback(
+		(address: string) =>
+			address === activeWallet?.address
+				? ""
+				: "text-dgreen-3 font-semibold",
+		[activeWallet]
+	);
 
 	if (!data || !data.length || !columns) return null;
 
@@ -51,7 +65,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 						<th
 							scope="col"
 							key={col.Header?.toString()}
-							className="border"
+							className="border text-gray-2 text-sm"
 						>
 							{col.Header}
 						</th>
@@ -60,24 +74,38 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 			</thead>
 			<tbody>
 				{data.map((transaction) => (
-					<tr className="divide-x" key={transaction.id}>
+					<tr
+						className="divide-x hover:bg-lgray-1"
+						key={transaction.id}
+					>
 						<td className="overflow-hidden text-center">
-							{transaction.id}
+							<TruncateMiddle
+								text={transaction.id}
+								className="text-dgreen-3 font-semibold"
+							/>
 						</td>
 						<td className="overflow-hidden text-center">
-							{transaction.sender}
+							<TruncateMiddle
+								text={transaction.sender}
+								className={textLinkClass(transaction.sender)}
+							/>
 						</td>
 						<td className="overflow-hidden text-center">
-							{transaction.recipient}
+							<TruncateMiddle
+								text={transaction.recipient}
+								className={textLinkClass(transaction.recipient)}
+							/>
 						</td>
 						<td className="overflow-hidden text-center">
-							{transaction.timestamp.human}
+							<HumanDate
+								unixTimestamp={transaction.timestamp.unix}
+							/>
 						</td>
 						<td className="overflow-hidden text-center">
-							{transaction.amount}
+							<HumanBigInt bigInt={transaction.amount} /> DARK
 						</td>
 						<td className="overflow-hidden text-center">
-							{transaction.fee}
+							<HumanBigInt bigInt={transaction.fee} /> DARK
 						</td>
 					</tr>
 				))}
