@@ -1,8 +1,8 @@
 import React from "react";
 
-import Address from "../../../assets/address.svg";
-import ArrowDown from "../../../assets/arrow-down.svg";
-import ArrowUp from "../../../assets/arrow-up.svg";
+import Address from "../../../assets/svgs/address.svg";
+import ArrowDown from "../../../assets/svgs/arrow-down.svg";
+import ArrowUp from "../../../assets/svgs/arrow-up.svg";
 
 export interface DropdownHeaderProps {
 	title: string;

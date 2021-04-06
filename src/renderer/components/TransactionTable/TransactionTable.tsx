@@ -1,7 +1,7 @@
 import { Transaction } from "@arkecosystem/client";
 import React, { memo, useCallback, useMemo } from "react";
 
-import { useWallet } from "../../../contexts/Wallet";
+import { useWalletContext } from "../../../contexts/Wallet";
 import { HumanBigInt } from "../HumanBigInt";
 import { HumanDate } from "../HumanDate";
 import { TruncateMiddle } from "../TruncateMiddle";
@@ -43,7 +43,7 @@ const COLUMNS: any[] = [
 ];
 
 const TransactionTable = ({ transactions }: TransactionTableProps) => {
-	const { activeWallet } = useWallet();
+	const { activeWallet } = useWalletContext();
 	const columns = useMemo(() => COLUMNS, []);
 	const data = useMemo(() => transactions, [transactions]);
 
@@ -72,7 +72,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 					))}
 				</tr>
 			</thead>
-			<tbody>
+			<tbody className="divide-y">
 				{data.map((transaction) => (
 					<tr
 						className="divide-x hover:bg-lgray-1"

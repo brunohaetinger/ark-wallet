@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
+import { clickOutsideHandler } from "../../../hooks/useClickOutside";
 import DropdownHeader from "./DropdownHeader";
 import DropdownMenu from "./DropdownMenu";
 
@@ -19,8 +20,13 @@ export const Dropdown = ({
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 	const [currentSelected, setCurrentSelected] = useState<string>("");
 	const listOptions = useMemo(() => options, [options]);
+	const menuRef = useRef(null);
 
 	const headerTitle = currentSelected === "" ? title : currentSelected;
+
+	useEffect(() => {
+		clickOutsideHandler(menuRef, () => setIsMenuOpen(false));
+	}, [menuRef]);
 
 	const toggleList = () => {
 		setIsMenuOpen((isOpen: boolean) => !isOpen);
@@ -33,23 +39,7 @@ export const Dropdown = ({
 	};
 
 	return (
-		// <select
-		// 	className={`bg-black ${className}`}
-		// 	defaultValue={""}
-		// 	onChange={(event) => {
-		// 		console.log(event);
-		// 		onSelect(event?.target.value);
-		// 	}}
-		// >
-		// 	<option value={""}>{title}</option>
-		// 	{selectOptions.map((option) => (
-		// 		<option key={option} value={option}>
-		// 			{option}
-		// 		</option>
-		// 	))}
-		// </select>
-
-		<div className={`dd-wrapper flex flex-col ${className}`}>
+		<div className={`flex flex-col ${className}`}>
 			<DropdownHeader
 				title={headerTitle}
 				isListOpen={isMenuOpen}
@@ -57,6 +47,7 @@ export const Dropdown = ({
 			/>
 			{isMenuOpen ? (
 				<DropdownMenu
+					ref={menuRef}
 					options={listOptions}
 					selectedItem={currentSelected}
 					onSelect={handleSelectItem}
@@ -65,3 +56,6 @@ export const Dropdown = ({
 		</div>
 	);
 };
+function useClickOutsideHandler(ref: any, hide: any) {
+	throw new Error("Function not implemented.");
+}

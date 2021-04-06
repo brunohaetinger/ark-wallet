@@ -1,10 +1,8 @@
-import { Transaction } from "@arkecosystem/client";
-import { Wallets } from "@arkecosystem/client/dist/resources/wallets";
-import React, { useState } from "react";
+import React from "react";
 
-import Logo from "../assets/logo.svg";
-import { useConnection } from "../contexts/Connection";
-import { useWallet } from "../contexts/Wallet";
+import Logo from "../assets/svgs/logo.svg";
+import { useWalletContext } from "../contexts/Wallet";
+import { useTransaction } from "../hooks/useTransaction";
 import { BalanceIndicator } from "../renderer/components/BalanceIndicator";
 import { Dropdown } from "../renderer/components/Dropdown";
 import TransactionTable from "../renderer/components/TransactionTable";
@@ -19,36 +17,31 @@ const initialWalletsIds = [
 ];
 
 const WalletDetails = () => {
-	const { activeWallet, setActiveWallet } = useWallet();
-	const connection = useConnection();
-	const [transactions, setTransactions] = useState<Transaction[] | null>(
-		null
-	);
+	const {
+		activeWallet,
+		fetchWallet,
+		isLoading: isLoadingWallet,
+	} = useWalletContext();
+	const {
+		transactions,
+		isLoading,
+		fetchWalletTransactions,
+	} = useTransaction();
 
-	const changeActiveWallet = async (walletId: string) => {
+	const changeActiveWallet = (walletId: string) => {
 		try {
-			const res = await new Wallets(connection).get(walletId);
-			setActiveWallet(res.body.data);
-
-			//transactions
-			const transactionRes = await new Wallets(connection).transactions(
-				walletId,
-				{
-					page: 1,
-					limit: 15,
-				}
-			);
-			setTransactions(transactionRes.body.data);
+			fetchWallet(walletId);
+			fetchWalletTransactions(walletId);
 		} catch (err) {
 			console.log("Error while fetching wallet", err);
 		}
 	};
 
 	return (
-		<div className="w-full overflow-hidden">
+		<div className="w-full h-full overflow-hidden">
 			<div className="bg-green-400 h-52 flex justify-center items-center px-10 py-12 bg-dgreen-3 ">
-				<div className="flex justify-between bg-black w-full text-white h-28 py-7.5 px-10 divide-x rounded-lg">
-					<div className="pr-10 w-1/3 flex items-center h-13">
+				<div className="flex justify-between bg-black w-full text-white h-28 py-7.5 px-10 divide-x divide-dark-1 rounded-lg">
+					<div className="pr-10 w-1/3 flex items-center h-13 ">
 						<img src={Logo} className="h-13 w-13" alt="logo" />
 						<h1 className="ml-3 font-extrabold text-4x1">
 							ARK Wallet
@@ -63,14 +56,21 @@ const WalletDetails = () => {
 					<div className="pl-10 w-1/3 flex items-center h-13">
 						<BalanceIndicator
 							balance={activeWallet?.balance || ""}
+							isLoading={isLoadingWallet}
 						/>
 					</div>
 				</div>
 			</div>
 			<div className="w-full h-full p-12">
-				<TransactionTable
-					transactions={transactions ? transactions : []}
-				/>
+				{!isLoading ? (
+					<TransactionTable
+						transactions={transactions ? transactions : []}
+					/>
+				) : (
+					<h1 className="text-dark-2 text-center font-bold">
+						Loading...
+					</h1>
+				)}
 			</div>
 		</div>
 	);
