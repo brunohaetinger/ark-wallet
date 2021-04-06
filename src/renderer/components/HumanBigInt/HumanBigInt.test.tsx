@@ -10,7 +10,9 @@ describe("HumanBigInt", () => {
 	});
 
 	it("should render human readable number", () => {
-		const { container } = render(<HumanBigInt bigInt="2009342693388606" />);
-		expect(container.innerText).toEqual("20093426.93388606");
+		const { queryByText } = render(
+			<HumanBigInt bigInt="2009342693388606" />
+		);
+		expect(queryByText("20093426.93388606")).toBeTruthy();
 	});
 });
