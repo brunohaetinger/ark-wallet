@@ -1,6 +1,5 @@
 module.exports = {
 	module: {
-		loaders: [{ loader: "file-loader", test: /\.(ttf|eot|svg)$/ }],
 		rules: [
 			{
 				test: /\.css$/,
@@ -8,8 +7,5 @@ module.exports = {
 				use: ["postcss-loader"],
 			},
 		],
-	},
-	resolve: {
-		extensions: [".js", ".ts"],
 	},
 };
