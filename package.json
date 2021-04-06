@@ -1,7 +1,7 @@
 {
-	"name": "react-electron-template",
+	"name": "ark-wallet",
 	"version": "1.0.0",
-	"author": "Lucio Rubens",
+	"author": "Bruno Haetinger",
 	"license": "MIT",
 	"scripts": {
 		"dev": "electron-webpack dev",
