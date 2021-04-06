@@ -13,7 +13,7 @@ export const App = () => (
 		</ConnectionProvider>
 		<footer className="bg-lgray-2 h-15 flex justify-center items-center">
 			{" "}
-			<span className="text-sm text-gray-2">
+			<span data-testid="footer__span" className="text-sm text-gray-2">
 				2020 © ARK.io | All rights reserved
 			</span>{" "}
 		</footer>

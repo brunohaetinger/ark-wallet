@@ -56,6 +56,3 @@ export const Dropdown = ({
 		</div>
 	);
 };
-function useClickOutsideHandler(ref: any, hide: any) {
-	throw new Error("Function not implemented.");
-}

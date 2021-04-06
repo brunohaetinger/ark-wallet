@@ -8,13 +8,14 @@
 // // import { ReactComponent as ArrowUp } from "./arrow-up.svg";
 // // import { ReactComponent as Balance } from "./balance.svg";
 // // import { ReactComponent as Logo } from "./logo.svg";
+import Balance from "./balance.svg";
 
-// const SvgCollection = {
-// 	Logo,
-// 	Address,
-// 	ArrowDown,
-// 	ArrowUp,
-// 	Balance,
-// };
+const SvgCollection = {
+	Balance,
+	// 	Logo,
+	// 	Address,
+	// 	ArrowDown,
+	// 	ArrowUp,
+};
 
-// export default SvgCollection;
+export default SvgCollection;

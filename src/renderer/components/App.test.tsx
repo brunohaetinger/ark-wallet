@@ -3,7 +3,9 @@ import React from "react";
 
 import { App } from "./App";
 
-test("should render", () => {
+test("should render with footer copyrights", () => {
 	render(<App />);
-	expect(screen.getByRole("heading")).toHaveTextContent("Hello");
+	expect(
+		screen.findByText("2020 © ARK.io | All rights reserved")
+	).toBeTruthy();
 });

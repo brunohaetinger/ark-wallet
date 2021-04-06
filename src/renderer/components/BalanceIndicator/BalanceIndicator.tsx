@@ -1,12 +1,14 @@
 import React from "react";
 
-import Balance from "../../../assets/svgs/balance.svg";
+import SvgCollection from "../../../assets/svgs";
 import { HumanBigInt } from "../HumanBigInt";
 
 export interface BalanceIndicatorProps {
 	balance: string | undefined;
 	isLoading: boolean;
 }
+
+const { Balance } = SvgCollection;
 
 export const BalanceIndicator = ({
 	balance,
@@ -19,7 +21,10 @@ export const BalanceIndicator = ({
 
 		<div className="flex flex-col ml-3">
 			<span className="text-gray-2 font-semibold text-sm">Balance</span>
-			<span className="text-white font-bold text-base">
+			<span
+				data-testid="balance__amount"
+				className="text-white font-bold text-base"
+			>
 				{balance && !isLoading ? (
 					<>
 						<HumanBigInt bigInt={balance} /> DARK
