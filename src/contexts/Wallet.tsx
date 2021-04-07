@@ -1,6 +1,6 @@
 import { Wallet } from "@arkecosystem/client";
 import { Wallets } from "@arkecosystem/client/dist/resources/wallets";
-import React, { createContext, useCallback, useState } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 import { useConnection } from "./Connection";
 
@@ -45,7 +45,7 @@ export const WalletProvider = ({ children }: Props) => {
 };
 
 export const useWalletContext = () => {
-	const context = React.useContext(WalletContext);
+	const context = useContext(WalletContext);
 	if (context === undefined) {
 		throw new Error("useWallet must be used within a WalletProvider");
 	}
