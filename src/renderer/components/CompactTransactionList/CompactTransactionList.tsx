@@ -3,6 +3,7 @@ import React, { memo, useCallback, useMemo } from "react";
 
 import { useViewportSize } from "../../../contexts/Viewport";
 import { useWalletContext } from "../../../contexts/Wallet";
+import { Endpoint } from "../../../utils/endpoint";
 import { HumanBigInt } from "../HumanBigInt";
 import { HumanDate } from "../HumanDate";
 import { TruncateMiddle } from "../TruncateMiddle";
@@ -13,7 +14,7 @@ type Props = {
 };
 
 const CompactTransactionList = ({ transactions }: Props) => {
-	const { activeWallet } = useWalletContext();
+	const { activeWallet, getWalletHref } = useWalletContext();
 	const { isXS } = useViewportSize();
 
 	const data = useMemo(() => transactions, [transactions]);
@@ -34,6 +35,7 @@ const CompactTransactionList = ({ transactions }: Props) => {
 				<TruncateMiddle
 					text={transaction.id}
 					className="text-dgreen-3 font-semibold"
+					href={`${Endpoint.transaction(transaction.id)}`}
 				/>
 			</ListItemRow>
 			<ListItemRow label={"Sender"}>
@@ -41,11 +43,15 @@ const CompactTransactionList = ({ transactions }: Props) => {
 					<TruncateMiddle
 						text={transaction.sender}
 						className={textLinkClass(transaction.sender)}
+						href={`${getWalletHref(transaction.sender)}`}
 					/>
 				) : (
-					<span className={textLinkClass(transaction.sender)}>
+					<a
+						className={textLinkClass(transaction.sender)}
+						href={`${getWalletHref(transaction.sender)}`}
+					>
 						{transaction.sender}
-					</span>
+					</a>
 				)}
 			</ListItemRow>
 			<ListItemRow label={"Recipient"}>
@@ -53,11 +59,15 @@ const CompactTransactionList = ({ transactions }: Props) => {
 					<TruncateMiddle
 						text={transaction.recipient}
 						className={textLinkClass(transaction.recipient)}
+						href={`${getWalletHref(transaction.recipient)}`}
 					/>
 				) : (
-					<span className={textLinkClass(transaction.recipient)}>
+					<a
+						className={textLinkClass(transaction.recipient)}
+						href={`${getWalletHref(transaction.recipient)}`}
+					>
 						{transaction.sender}
-					</span>
+					</a>
 				)}
 			</ListItemRow>
 			<ListItemRow label={"Timestamp"}>

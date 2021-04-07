@@ -18,7 +18,7 @@ export const TruncateMiddle = ({ text, maxChars, ...props }: Props) => {
 		return `${start}…${end}`;
 	}, [maxChars, text]);
 
-	return <span {...props}>{result}</span>;
+	return <a {...props}>{result}</a>;
 };
 
 TruncateMiddle.defaultProps = {

@@ -2,11 +2,13 @@ import { Wallet } from "@arkecosystem/client";
 import { Wallets } from "@arkecosystem/client/dist/resources/wallets";
 import React, { createContext, useCallback, useContext, useState } from "react";
 
+import { Endpoint } from "../utils/endpoint";
 import { useConnection } from "./Connection";
 
 export interface WalletContextValue {
 	activeWallet: Wallet | undefined;
 	fetchWallet: (walletId: string) => Promise<void>;
+	getWalletHref: (walletId: string) => string;
 	isLoading: boolean;
 }
 
@@ -35,9 +37,16 @@ export const WalletProvider = ({ children }: Props) => {
 		},
 		[connection]
 	);
+
+	const getWalletHref = useCallback(
+		(address: string) =>
+			address !== activeWallet?.address ? Endpoint.wallet(address) : "#",
+		[activeWallet]
+	);
+
 	return (
 		<WalletContext.Provider
-			value={{ activeWallet, fetchWallet, isLoading }}
+			value={{ activeWallet, fetchWallet, isLoading, getWalletHref }}
 		>
 			{children}
 		</WalletContext.Provider>

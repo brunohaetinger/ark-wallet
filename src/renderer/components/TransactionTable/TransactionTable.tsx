@@ -3,6 +3,7 @@ import React, { memo, useCallback, useMemo } from "react";
 
 import { useViewportSize } from "../../../contexts/Viewport";
 import { useWalletContext } from "../../../contexts/Wallet";
+import { Endpoint } from "../../../utils/endpoint";
 import CompactTransactionList from "../CompactTransactionList/CompactTransactionList";
 import { HumanBigInt } from "../HumanBigInt";
 import { HumanDate } from "../HumanDate";
@@ -21,7 +22,7 @@ const COLUMNS: string[] = [
 ];
 
 const TransactionTable = ({ transactions }: TransactionTableProps) => {
-	const { activeWallet } = useWalletContext();
+	const { activeWallet, getWalletHref } = useWalletContext();
 	const { isCompact } = useViewportSize();
 
 	const columns = useMemo(() => COLUMNS, []);
@@ -64,18 +65,21 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 							<TruncateMiddle
 								text={transaction.id}
 								className="text-dgreen-3 font-semibold"
+								href={`${Endpoint.transaction(transaction.id)}`}
 							/>
 						</td>
 						<td className="overflow-hidden text-center">
 							<TruncateMiddle
 								text={transaction.sender}
 								className={textLinkClass(transaction.sender)}
+								href={`${getWalletHref(transaction.sender)}`}
 							/>
 						</td>
 						<td className="overflow-hidden text-center">
 							<TruncateMiddle
 								text={transaction.recipient}
 								className={textLinkClass(transaction.recipient)}
+								href={`${getWalletHref(transaction.recipient)}`}
 							/>
 						</td>
 						<td className="overflow-hidden text-center">
@@ -84,10 +88,16 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 							/>
 						</td>
 						<td className="overflow-hidden text-center">
-							<HumanBigInt bigInt={transaction.amount} /> DARK
+							<HumanBigInt
+								bigInt={transaction.amount}
+								sufix={"DARK"}
+							/>
 						</td>
 						<td className="overflow-hidden text-center">
-							<HumanBigInt bigInt={transaction.fee} /> DARK
+							<HumanBigInt
+								bigInt={transaction.fee}
+								sufix={"DARK"}
+							/>
 						</td>
 					</tr>
 				))}
