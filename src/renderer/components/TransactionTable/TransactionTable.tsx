@@ -1,7 +1,9 @@
 import { Transaction } from "@arkecosystem/client";
 import React, { memo, useCallback, useMemo } from "react";
 
+import { useViewportSize } from "../../../contexts/Viewport";
 import { useWalletContext } from "../../../contexts/Wallet";
+import CompactTransactionList from "../CompactTransactionList/CompactTransactionList";
 import { HumanBigInt } from "../HumanBigInt";
 import { HumanDate } from "../HumanDate";
 import { TruncateMiddle } from "../TruncateMiddle";
@@ -9,41 +11,19 @@ import { TruncateMiddle } from "../TruncateMiddle";
 export interface TransactionTableProps {
 	transactions: Transaction[] | null;
 }
-const COLUMNS: any[] = [
-	{
-		Header: "Txid",
-		accessor: "id",
-		class: "w-1/8",
-	},
-	{
-		Header: "Sender",
-		accessor: "sender",
-		class: "w-1/8",
-	},
-	{
-		Header: "Recipient",
-		accessor: "recipient",
-		class: "w-1/8",
-	},
-	{
-		Header: "Timestamp",
-		accessor: "timestamp.human",
-		class: "w-1/8",
-	},
-	{
-		Header: "Amount",
-		accessor: "amount",
-		class: "w-1/8",
-	},
-	{
-		Header: "Fee",
-		accessor: "fee",
-		class: "w-1/8",
-	},
+const COLUMNS: string[] = [
+	"Txid",
+	"Sender",
+	"Recipient",
+	"Timestamp",
+	"Amount",
+	"Fee",
 ];
 
 const TransactionTable = ({ transactions }: TransactionTableProps) => {
 	const { activeWallet } = useWalletContext();
+	const { isCompact } = useViewportSize();
+
 	const columns = useMemo(() => COLUMNS, []);
 	const data = useMemo(() => transactions, [transactions]);
 
@@ -57,17 +37,19 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 
 	if (!data || !data.length || !columns) return null;
 
-	return (
+	return isCompact ? (
+		<CompactTransactionList transactions={transactions} />
+	) : (
 		<table className="border-collapse table-fixed w-full">
 			<thead>
 				<tr>
 					{columns.map((col) => (
 						<th
 							scope="col"
-							key={col.Header?.toString()}
+							key={col.toString()}
 							className="border text-gray-2 text-sm"
 						>
-							{col.Header}
+							{col}
 						</th>
 					))}
 				</tr>

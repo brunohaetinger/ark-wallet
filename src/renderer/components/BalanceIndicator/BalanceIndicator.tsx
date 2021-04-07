@@ -27,7 +27,7 @@ export const BalanceIndicator = ({
 			>
 				{balance && !isLoading ? (
 					<>
-						<HumanBigInt bigInt={balance} /> DARK
+						<HumanBigInt bigInt={balance} sufix={"DARK"} />
 					</>
 				) : (
 					"-"
