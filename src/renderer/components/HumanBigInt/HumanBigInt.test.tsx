@@ -15,4 +15,11 @@ describe("HumanBigInt", () => {
 		);
 		expect(queryByText("20093426.93388606")).toBeTruthy();
 	});
+
+	it("should render human readable number with sufix", () => {
+		const { queryByText } = render(
+			<HumanBigInt bigInt="2009342693388606" sufix={"DARK"} />
+		);
+		expect(queryByText("20093426.93388606 DARK")).toBeTruthy();
+	});
 });

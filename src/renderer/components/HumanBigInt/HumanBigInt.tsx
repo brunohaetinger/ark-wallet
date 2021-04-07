@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {
 	bigInt: string;
-	sufix: string;
+	sufix?: string;
 }
 
 export const HumanBigInt = ({ bigInt, sufix }: Props) => {

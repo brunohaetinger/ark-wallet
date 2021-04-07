@@ -15,7 +15,7 @@ interface WalletContextValue {
 	isXS: boolean;
 }
 
-const ViewportContext = createContext<WalletContextValue | undefined>(
+const ViewportSizeContext = createContext<WalletContextValue | undefined>(
 	undefined
 );
 
@@ -38,16 +38,20 @@ export const ViewportSizeProvider = ({ children }: Props) => {
 	}, []);
 
 	return (
-		<ViewportContext.Provider value={{ width, height, isCompact, isXS }}>
+		<ViewportSizeContext.Provider
+			value={{ width, height, isCompact, isXS }}
+		>
 			{children}
-		</ViewportContext.Provider>
+		</ViewportSizeContext.Provider>
 	);
 };
 
 export const useViewportSize = () => {
-	const context = useContext(ViewportContext);
+	const context = useContext(ViewportSizeContext);
 	if (context === undefined) {
-		throw new Error("useViewport must be used within a ViewportContext");
+		throw new Error(
+			"useViewportSize must be used within a ViewportSizeContext"
+		);
 	}
 	return context;
 };
