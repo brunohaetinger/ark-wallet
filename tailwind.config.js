@@ -36,11 +36,16 @@ module.exports = {
 				12.5: "3.125rem",
 				13: "3.25rem",
 				15: "3.75rem",
+				78: "19.5rem",
+				102: "25.5rem",
 			},
 			width: {
 				12.5: "3.125rem",
 				13: "3.25rem",
 				15: "3.75rem",
+			},
+			minWidth: {
+				13: "3.25rem",
 			},
 			padding: {
 				7.5: "1.875rem",
